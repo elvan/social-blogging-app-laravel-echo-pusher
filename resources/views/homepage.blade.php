@@ -1,28 +1,43 @@
-<html lang="en">
+<x-layout>
+    <div class="container py-md-5">
+        <div class="row align-items-center">
+            <div class="col-lg-7 py-3 py-md-5">
+                <h1 class="display-3">Remember Writing?</h1>
+                <p class="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that
+                    are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing
+                    is the key to enjoying the internet again.</p>
+            </div>
+            <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
+                <form action="#" method="POST" id="registration-form">
+                    <div class="form-group">
+                        <label for="username-register" class="text-muted mb-1"><small>Username</small></label>
+                        <input name="username" id="username-register" class="form-control" type="text"
+                            placeholder="Pick a username" autocomplete="off" />
+                    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+                    <div class="form-group">
+                        <label for="email-register" class="text-muted mb-1"><small>Email</small></label>
+                        <input name="email" id="email-register" class="form-control" type="text"
+                            placeholder="you@example.com" autocomplete="off" />
+                    </div>
 
-<body>
-    <h1>Hello, this is a blade template.</h1>
+                    <div class="form-group">
+                        <label for="password-register" class="text-muted mb-1"><small>Password</small></label>
+                        <input name="password" id="password-register" class="form-control" type="password"
+                            placeholder="Create a password" />
+                    </div>
 
-    <p>A great number is {{ 2 + 2 }}</p>
-    <p>The current year is {{ date('Y') }}</p>
+                    <div class="form-group">
+                        <label for="password-register-confirm" class="text-muted mb-1"><small>Confirm
+                                Password</small></label>
+                        <input name="password" id="password-register-confirm" class="form-control" type="password"
+                            placeholder="Confirm password" />
+                    </div>
 
-    <h3>{{ $name }}</h3>
-    <h2>{{ $catname }}</h2>
-
-    <ul>
-        @foreach ($allAnimals as $animal)
-            <li>{{ $animal }}</li>
-        @endforeach
-    </ul>
-
-    <a href="/about">Go to the about page</a>
-</body>
-
-</html>
+                    <button type="submit" class="py-3 mt-4 btn btn-lg btn-success btn-block">Sign up for
+                        SocialBlogging</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</x-layout>
