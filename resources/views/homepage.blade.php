@@ -3,12 +3,13 @@
         <div class="row align-items-center">
             <div class="col-lg-7 py-3 py-md-5">
                 <h1 class="display-3">Remember Writing?</h1>
-                <p class="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that
-                    are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing
-                    is the key to enjoying the internet again.</p>
+                <p class="lead text-muted">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem dolor
+                    tenetur, soluta, architecto cum cupiditate repudiandae in repellendus accusamus quam iste
+                    consequuntur placeat vel ipsam. Maiores a quae minima nostrum?</p>
             </div>
             <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
-                <form action="#" method="POST" id="registration-form">
+                <form action="/register" method="POST" id="registration-form">
+                    @csrf
                     <div class="form-group">
                         <label for="username-register" class="text-muted mb-1"><small>Username</small></label>
                         <input name="username" id="username-register" class="form-control" type="text"
