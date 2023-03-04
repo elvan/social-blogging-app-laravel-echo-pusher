@@ -98,7 +98,7 @@ class UserController extends Controller
     {
         if (auth()->check()) {
             return view('homepage-feed', [
-                'posts' => auth()->user()->feedPosts()->latest()->get()
+                'posts' => auth()->user()->feedPosts()->latest()->paginate(5)
             ]);
         } else {
             return view('homepage');
