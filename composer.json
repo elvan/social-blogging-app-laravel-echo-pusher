@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0",
@@ -10,8 +13,8 @@
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.0",
-        "laravel/sanctum": "^2.14",
-        "laravel/scout": "9.*",
+        "laravel/sanctum": "^3.2",
+        "laravel/scout": "^9.0",
         "laravel/tinker": "^2.7",
         "pusher/pusher-php-server": "^7.2"
     },
