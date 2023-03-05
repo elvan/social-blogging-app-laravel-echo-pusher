@@ -6,6 +6,7 @@
                 <p class="lead text-muted">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem dolor
                     tenetur, soluta, architecto cum cupiditate repudiandae in repellendus accusamus quam iste
                     consequuntur placeat vel ipsam. Maiores a quae minima nostrum?</p>
+                <p>Our users have authored {{ $postCount }} posts.</p>
             </div>
             <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
                 <form action="/register" method="POST" id="registration-form">

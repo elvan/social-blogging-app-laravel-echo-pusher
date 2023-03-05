@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 use Illuminate\Validation\Rule;
@@ -48,10 +50,20 @@ class UserController extends Controller
         $currentlyFollowing = 0;
 
         if (auth()->check()) {
-            $currentlyFollowing = Follow::where([['user_id', '=', auth()->user()->id], ['followeduser', '=', $user->id]])->count();
+            $currentlyFollowing = Follow::where([
+                ['user_id', '=', auth()->user()->id],
+                ['followeduser', '=', $user->id]
+            ])->count();
         }
 
-        View::share('sharedData', ['currentlyFollowing' => $currentlyFollowing, 'avatar' => $user->avatar, 'username' => $user->username, 'postCount' => $user->posts()->count(), 'followerCount' => $user->followers()->count(), 'followingCount' => $user->followingTheseUsers()->count()]);
+        View::share('sharedData', [
+            'currentlyFollowing' => $currentlyFollowing,
+            'avatar' => $user->avatar,
+            'username' => $user->username,
+            'postCount' => $user->posts()->count(),
+            'followerCount' => $user->followers()->count(),
+            'followingCount' => $user->followingTheseUsers()->count()
+        ]);
     }
 
     public function profile(User $user)
@@ -62,7 +74,12 @@ class UserController extends Controller
 
     public function profileRaw(User $user)
     {
-        return response()->json(['theHTML' => view('profile-posts-only', ['posts' => $user->posts()->latest()->get()])->render(), 'docTitle' => $user->username . "'s Profile"]);
+        return response()->json([
+            'theHTML' => view('profile-posts-only', [
+                'posts' => $user->posts()->latest()->get()
+            ])->render(),
+            'docTitle' => $user->username . "'s Profile"
+        ]);
     }
 
     public function profileFollowers(User $user)
@@ -73,7 +90,12 @@ class UserController extends Controller
 
     public function profileFollowersRaw(User $user)
     {
-        return response()->json(['theHTML' => view('profile-followers-only', ['followers' => $user->followers()->latest()->get()])->render(), 'docTitle' => $user->username . "'s Followers"]);
+        return response()->json([
+            'theHTML' => view('profile-followers-only', [
+                'followers' => $user->followers()->latest()->get()
+            ])->render(),
+            'docTitle' => $user->username . "'s Followers"
+        ]);
     }
 
     public function profileFollowing(User $user)
@@ -84,7 +106,12 @@ class UserController extends Controller
 
     public function profileFollowingRaw(User $user)
     {
-        return response()->json(['theHTML' => view('profile-following-only', ['following' => $user->followingTheseUsers()->latest()->get()])->render(), 'docTitle' => 'Who ' . $user->username . " Follows"]);
+        return response()->json([
+            'theHTML' => view('profile-following-only', [
+                'following' => $user->followingTheseUsers()->latest()->get()
+            ])->render(),
+            'docTitle' => 'Who ' . $user->username . " Follows"
+        ]);
     }
 
     public function logout()
@@ -98,7 +125,11 @@ class UserController extends Controller
         if (auth()->check()) {
             return view('homepage-feed', ['posts' => auth()->user()->feedPosts()->latest()->paginate(4)]);
         } else {
-            return view('homepage');
+            $postCount = Cache::remember('postCount', 60, function () {
+                sleep(1);
+                return Post::count();
+            });
+            return view('homepage', ['postCount' => $postCount]);
         }
     }
 
@@ -109,7 +140,10 @@ class UserController extends Controller
             'loginpassword' => 'required'
         ]);
 
-        if (auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
+        if (auth()->attempt([
+            'username' => $incomingFields['loginusername'],
+            'password' => $incomingFields['loginpassword']
+        ])) {
             $request->session()->regenerate();
             return redirect('/')->with('success', 'You have successfully logged in.');
         } else {
